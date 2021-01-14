@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="form-group mr-auto">
+        <form action="register" method='POST'>{% csrf_token %}
+            <input type="text" class="form-control" name="username" placeholder="Username">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            <input type="password" class="form-control" name="password_submit" placeholder="Submit password">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <div class="form-group mr-auto">
+        <form action="login" method='POST'>{% csrf_token %}
+            <input type="text" class="form-control" name="username" placeholder="Username">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+{% endblock %}
