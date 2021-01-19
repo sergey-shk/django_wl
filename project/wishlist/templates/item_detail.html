@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+    
+    {% if request.user == item.owner %}
+        <div class="form-group mr-auto w-25">
+            <form action="{% url 'update_item' item.id %}" method='POST'>{% csrf_token %}
+                <input type="text" class="form-control" name="name" value='{{ item.name }}'>
+                <input type="text" class="form-control" name="image_url" placeholder="Pic url" value='{{ item.image_url }}'>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+
+        <form action="{% url 'delete_item' item.id %}" method='POST'>{% csrf_token %}
+            <button type="submit" class="btn btn-primary">delete</button>
+        </form>
+
+    {% else %}
+
+        {{ item.name }}
+        {{ item.owner }}
+        {{ item.date }}
+    
+    {% endif %}
+
+{% endblock container %}

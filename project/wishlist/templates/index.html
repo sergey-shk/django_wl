@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    <div class="form-group mr-auto">
+    <div class="form-group mr-auto w-25">
         <form action="register" method='POST'>{% csrf_token %}
             <input type="text" class="form-control" name="username" placeholder="Username">
             <input type="password" class="form-control" name="password" placeholder="Password">
@@ -10,7 +10,7 @@
         </form>
     </div>
 
-    <div class="form-group mr-auto">
+    <div class="form-group mr-auto w-25">
         <form action="login" method='POST'>{% csrf_token %}
             <input type="text" class="form-control" name="username" placeholder="Username">
             <input type="password" class="form-control" name="password" placeholder="Password">

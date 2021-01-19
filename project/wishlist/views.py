@@ -6,7 +6,10 @@ from django.contrib import auth
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, 'home.html')
+        data = {
+            'wish_list': wishlist.get_wish_list()
+        }
+        return render(request, 'home.html', context=data)
     else:
         return render(request, 'index.html')
 
@@ -26,16 +29,32 @@ def login(request):
 
 
 def logout(request):
-    if request.method != 'POST':
+    if not request.user.is_authenticated:
         return redirect('index')
     auth.logout(request)
     return redirect('index')
 
 
-def about(request):
-    return HttpResponse('About page')
+def create_wish_item(request):
+    if request.method != 'POST':
+        return redirect('index')
+    wishlist.create_wish_item(request)
+    return redirect('index')
 
 
-def example(request):
-    response = wishlist.ex()
-    return response
+def delete_item(request, item_id):
+    if request.method != 'POST':
+        return redirect('index')
+    wishlist.delete_item(item_id)
+    return redirect('index')
+
+
+def item_details(request, item_id):
+    item = wishlist.get_item_details(item_id)
+    return render(request, 'item_detail.html', context={'item': item})
+
+
+def update_item(request, item_id):
+    wishlist.update_item(request, item_id)
+    item = wishlist.get_item_details(item_id)
+    return render(request, 'item_detail.html', context={'item': item})
